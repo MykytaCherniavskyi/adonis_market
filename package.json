@@ -33,6 +33,7 @@
     "prettier": "1.14.2"
   },
   "autoload": {
-    "App": "./app"
+    "App": "./app",
+    "Adonis": "./app"
   }
 }
