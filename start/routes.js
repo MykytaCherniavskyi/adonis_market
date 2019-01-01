@@ -19,7 +19,7 @@ const Product = use('App/Models/Product')
 Route.get('/', () => ({ status: 'OK', version: '1.0.0'}))
 
 Route.group('non-login-routes', () => {
-    Route.get('/login', 'AuthController.index')
+    Route.get('/login', 'AuthController.index').as('index')
     Route.post('/login', 'AuthController.login').middleware(['quest'])
 })
 

@@ -29,7 +29,7 @@ class AuthController {
             password,
             requestData
         })
-        // response.route('list')
+        // response.route('index')
     }
 
     async registrationPage() {
