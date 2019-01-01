@@ -12,7 +12,9 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-const Route = use('Route');
+const Route = use('Route')
+const Database = use('Database')
+const Product = use('App/Models/Product')
 
 Route.get('/', () => ({ status: 'OK', version: '1.0.0'}))
 
@@ -24,4 +26,8 @@ Route.group('non-login-routes', () => {
 Route.group('non-register-routes', () => {
     Route.get('/registration', 'AuthController.registrationPage')
     Route.post('/registration', 'AuthController.registartion')
+})
+
+Route.post('/db', async () => {
+    return await Database.table('products').select('*').where('id','=','2')
 })
