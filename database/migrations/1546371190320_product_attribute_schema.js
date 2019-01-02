@@ -10,6 +10,7 @@ class ProductAttributeSchema extends Schema {
       table.string('value').notNullable()
       table.integer('product_id').unsigned().notNullable()
       table.integer('attribute_id').unsigned().notNullable()
+      table.timestamps()
 
       table.foreign('product_id').references('id').inTable('products')
       table.foreign('attribute_id').references('id').inTable('attributes')

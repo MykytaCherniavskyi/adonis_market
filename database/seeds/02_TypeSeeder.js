@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| ProdoneSeeder
+| TypeSeeder
 |--------------------------------------------------------------------------
 |
 | Make use of the Factory instance to seed database with dummy data or
@@ -12,18 +12,22 @@
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
-const Database = use('Database')
-const Product = use('App/Models/Product')
+const Type = use('App/Models/Type')
 
-class ProdoneSeeder {
+class TypeSeeder {
   async run () {
 
-    
-    const types = [{ name: 'notebook' }, { name: 'phone' }, { name: 'car' }];
+    await Type.query().delete()
 
-    await Product.createMany(types);
+    const types = [
+      { name: 'tv'},
+      { name: 'phones'},
+      { name: 'laptop'}
+    ]
+
+    await Type.createMany(types)
 
   }
 }
 
-module.exports = ProdoneSeeder
+module.exports = TypeSeeder

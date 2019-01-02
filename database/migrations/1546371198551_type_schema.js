@@ -8,6 +8,7 @@ class TypeSchema extends Schema {
     this.create('types', (table) => {
       table.increments()
       table.string('name').notNullable()
+      table.timestamps()
     })
   }
 
