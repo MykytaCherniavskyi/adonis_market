@@ -7,3 +7,4 @@ tmp
 # Environment variables, never commit this file
 .env
 
+.vscode

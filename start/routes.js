@@ -14,4 +14,11 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-Route.get('/', () => ({ status: 'Ok', version: '1.0.0' }));
+Route.get('/', () => ({ status: 'OK', version: '1.0.0' }));
+
+Route.group(() => {
+  Route.resource('/login', 'LoginController').apiOnly();
+  Route.resource('/products', 'ProductsController').apiOnly();
+  Route.resource('/products/types', 'ProductsTypesController').apiOnly();
+  Route.resource('/types', 'TypesController').apiOnly();
+}).prefix('api');
