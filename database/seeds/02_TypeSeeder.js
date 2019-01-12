@@ -1,5 +1,3 @@
-'use strict'
-
 /*
 |--------------------------------------------------------------------------
 | TypeSeeder
@@ -11,23 +9,16 @@
 */
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-const Factory = use('Factory')
-const Type = use('App/Models/Type')
+const Type = use('App/Models/Type');
 
 class TypeSeeder {
-  async run () {
+  async run() {
+    await Type.query().delete();
 
-    await Type.query().delete()
+    const types = [{ name: 'tv' }, { name: 'phone' }, { name: 'laptop' }];
 
-    const types = [
-      { name: 'tv'},
-      { name: 'phones'},
-      { name: 'laptop'}
-    ]
-
-    await Type.createMany(types)
-
+    await Type.createMany(types);
   }
 }
 
-module.exports = TypeSeeder
+module.exports = TypeSeeder;

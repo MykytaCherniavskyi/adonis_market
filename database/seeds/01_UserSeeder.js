@@ -1,5 +1,3 @@
-'use strict'
-
 /*
 |--------------------------------------------------------------------------
 | UserSeeder
@@ -11,22 +9,16 @@
 */
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-const Factory = use('Factory')
-const User = use('App/Models/User')
+const User = use('App/Models/User');
 
 class UserSeeder {
-  async run () {
+  async run() {
+    await User.query().delete();
 
-    await User.query().delete()
+    const users = [{ name: 'admin' }, { name: 'nikita' }];
 
-    const users = [
-      { name:'admin' },
-      { name:'nikita'}
-    ]
-
-    await User.createMany(users)
-
+    await User.createMany(users);
   }
 }
 
-module.exports = UserSeeder
+module.exports = UserSeeder;

@@ -1,5 +1,3 @@
-'use strict'
-
 /*
 |--------------------------------------------------------------------------
 | ProductSeeder
@@ -11,27 +9,26 @@
 */
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-const Factory = use('Factory')
-const Attribute = use('App/Models/Attribute')
-const User = use('App/Models/User')
-const Type = use('App/Models/Type')
+const Attribute = use('App/Models/Attribute');
+const User = use('App/Models/User');
+const Type = use('App/Models/Type');
 
 class ProductSeeder {
-  async run () {
-    await Attribute.query().delete()
+  async run() {
+    await Attribute.query().delete();
 
-    const users = await User.pair('id','name')
-    const types = await Type.pair('id','name')
+    const users = await User.pair('name', 'id');
+    const types = await Type.pair('name', 'id');
 
     const products = [
-      { name: 'Galaxy Note 10', user_id: users.admin, type_id: types.phone},
-      { name: 'Pixel 2XL', user_id: users.admin, type_id: types.phone},
-      { name: 'Dell Latitude', user_id: users.admin, type_id: types.laptop},
-      { name: 'Samsung HQL2', user_id: user_admin, type_id: types.tv}
-    ]
+      { name: 'Galaxy Note 10', user_id: users.admin, type_id: types.phone },
+      { name: 'Pixel 2XL', user_id: users.admin, type_id: types.phone },
+      { name: 'Dell Latitude', user_id: users.admin, type_id: types.laptop },
+      { name: 'Samsung HQL2', user_id: users.admin, type_id: types.tv }
+    ];
 
-    await Attribute.createMany(products)
+    await Attribute.createMany(products);
   }
 }
 
-module.exports = ProductSeeder
+module.exports = ProductSeeder;
