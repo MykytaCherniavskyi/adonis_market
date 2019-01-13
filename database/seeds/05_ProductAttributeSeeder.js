@@ -18,14 +18,14 @@ class ProductAttributeSeeder {
     await ProductAttribute.query().delete();
 
     const galaxy = await Product.findBy('name', 'Galaxy Note 10');
-    const attribute = await Attribute.pair('id', 'name');
+    const attributes = (await Attribute.all()).toJSON();
 
     const prodAttr = [
-      { product_id: galaxy.id, attribute_id: attribute.display, value: '6.0' },
-      { product_id: galaxy.id, attribute_id: attribute.keypad, value: 'no' },
-      { product_id: galaxy.id, attribute_id: attribute.memory, value: '4' },
-      { product_id: galaxy.id, attribute_id: attribute.wifi, value: 'yes' },
-      { product_id: galaxy.id, attribute_id: attribute.proccessor, value: 'Qualcomm snapdragon' }
+      { product_id: galaxy.id, attribute_id: attributes[0].id, value: '6.0' },
+      { product_id: galaxy.id, attribute_id: attributes[1].id, value: 'no' },
+      { product_id: galaxy.id, attribute_id: attributes[2].id, value: '4' },
+      { product_id: galaxy.id, attribute_id: attributes[3].id, value: 'yes' },
+      { product_id: galaxy.id, attribute_id: attributes[4].id, value: 'Qualcomm snapdragon' }
     ];
 
     await ProductAttribute.createMany(prodAttr);

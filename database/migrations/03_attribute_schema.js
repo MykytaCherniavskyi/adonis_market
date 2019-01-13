@@ -11,7 +11,8 @@ class AttributeSchema extends Schema {
       table
         .foreign('type_id')
         .references('id')
-        .inTable('types');
+        .inTable('types')
+        .onDelete('CASCADE');
       table.timestamps();
     });
   }

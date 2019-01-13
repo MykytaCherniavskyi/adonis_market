@@ -19,11 +19,13 @@ class ProductsSchema extends Schema {
       table
         .foreign('user_id')
         .references('id')
-        .inTable('users');
+        .inTable('users')
+        .onDelete('CASCADE');
       table
         .foreign('type_id')
         .references('id')
-        .inTable('types');
+        .inTable('types')
+        .onDelete('CASCADE');
     });
   }
 

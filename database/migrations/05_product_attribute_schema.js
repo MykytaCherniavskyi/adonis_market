@@ -19,11 +19,13 @@ class ProductAttributeSchema extends Schema {
       table
         .foreign('product_id')
         .references('id')
-        .inTable('products');
+        .inTable('products')
+        .onDelete('CASCADE');
       table
         .foreign('attribute_id')
         .references('id')
-        .inTable('attributes');
+        .inTable('attributes')
+        .onDelete('CASCADE');
     });
   }
 

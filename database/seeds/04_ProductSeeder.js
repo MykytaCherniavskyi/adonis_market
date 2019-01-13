@@ -9,13 +9,13 @@
 */
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-const Attribute = use('App/Models/Attribute');
+const Product = use('App/Models/Product');
 const User = use('App/Models/User');
 const Type = use('App/Models/Type');
 
 class ProductSeeder {
   async run() {
-    await Attribute.query().delete();
+    await Product.query().delete();
 
     const users = await User.pair('name', 'id');
     const types = await Type.pair('name', 'id');
@@ -27,7 +27,7 @@ class ProductSeeder {
       { name: 'Samsung HQL2', user_id: users.admin, type_id: types.tv }
     ];
 
-    await Attribute.createMany(products);
+    await Product.createMany(products);
   }
 }
 
