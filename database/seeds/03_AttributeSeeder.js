@@ -11,22 +11,26 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Attribute = use('App/Models/Attribute');
 const Type = use('App/Models/Type');
+const Factory = use('Factory');
 
 class AttributeSeeder {
   async run() {
     await Attribute.query().delete();
 
-    const types = await Type.pair('name', 'id');
+    const { rows: types } = await Type.all();
+    const attrs = [];
 
-    const attr = [
-      { name: 'display', type_id: types.phone },
-      { name: 'keypad', type_id: types.laptop },
-      { name: 'memory', type_id: types.phone },
-      { name: 'wifi', type_id: types.phone },
-      { name: 'processor', type_id: types.phone }
-    ];
+    types.forEach((element, i) => {
+      const index = types[i].id;
+      attrs.push(
+        Factory.model('App/Models/Attribute').createMany(2, {
+          name: element.name,
+          type_id: index
+        })
+      );
+    });
 
-    await Attribute.createMany(attr);
+    await Promise.all(attrs);
   }
 }
 

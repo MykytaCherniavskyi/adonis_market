@@ -10,14 +10,20 @@
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Type = use('App/Models/Type');
+const Factory = use('Factory');
 
 class TypeSeeder {
   async run() {
     await Type.query().delete();
 
-    const types = [{ name: 'tv' }, { name: 'phone' }, { name: 'laptop' }];
+    const types = ['tv', 'phone', 'laptop'];
+    const readyTypes = [];
 
-    await Type.createMany(types);
+    types.forEach(item => {
+      readyTypes.push(Factory.model('App/Models/Type').create({ name: item }));
+    });
+
+    await Promise.all(readyTypes);
   }
 }
 

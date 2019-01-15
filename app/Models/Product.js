@@ -2,12 +2,16 @@
 const Model = use('Model');
 
 class Product extends Model {
+  static get updatedAtColumn() {
+    return null;
+  }
+
   users() {
     return this.belongsTo('App/Models/User');
   }
 
-  productAttribute() {
-    return this.hasMany('App/Models/ProductAttribute');
+  Attribute() {
+    return this.belongsToMany('App/Models/Attribute');
   }
 
   types() {

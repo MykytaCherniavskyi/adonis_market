@@ -14,7 +14,7 @@ class ProductsSchema extends Schema {
         .integer('type_id')
         .unsigned()
         .notNullable();
-      table.timestamps();
+      table.timestamp('created_at').defaultTo(this.fn.now());
 
       table
         .foreign('user_id')

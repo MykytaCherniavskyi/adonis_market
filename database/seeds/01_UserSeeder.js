@@ -10,14 +10,14 @@
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const User = use('App/Models/User');
+const Factory = use('Factory');
 
 class UserSeeder {
   async run() {
     await User.query().delete();
 
-    const users = [{ name: 'admin' }, { name: 'nikita' }];
-
-    await User.createMany(users);
+    await Factory.model('App/Models/User').create({ name: 'admin', password: 'admin', email: 'admin@gmail.com' });
+    await Factory.model('App/Models/User').create({ name: 'nikita', password: 'admin2' });
   }
 }
 
