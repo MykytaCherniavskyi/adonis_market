@@ -12,22 +12,30 @@
 const Product = use('App/Models/Product');
 const User = use('App/Models/User');
 const Type = use('App/Models/Type');
+const Factory = use('Factory');
 
 class ProductSeeder {
   async run() {
     await Product.query().delete();
 
-    const users = await User.pair('name', 'id');
-    const types = await Type.pair('name', 'id');
+    const { rows: users } = await User.all();
+    const { rows: types } = await Type.all();
+    const prod = [];
 
-    const products = [
-      { name: 'Galaxy Note 10', user_id: users.admin, type_id: types.phone },
-      { name: 'Pixel 2XL', user_id: users.admin, type_id: types.phone },
-      { name: 'Dell Latitude', user_id: users.admin, type_id: types.laptop },
-      { name: 'Samsung HQL2', user_id: users.admin, type_id: types.tv }
-    ];
+    users.forEach(element => {
+      const index = element.id;
+      types.forEach(item => {
+        prod.push(
+          Factory.model('App/Models/Product').create({
+            name: element.name,
+            user_id: index,
+            type_id: item.id
+          })
+        );
+      });
+    });
 
-    await Product.createMany(products);
+    await Promise.all(prod);
   }
 }
 

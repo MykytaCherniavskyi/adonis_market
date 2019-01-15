@@ -2,6 +2,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const User = use('App/Models/User');
+
 /**
  * Resourceful controller for interacting with attributes
  */
@@ -15,48 +17,29 @@ class LoginController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ request, response, view }) {}
+  async index({ request, response }) {
+    const { email } = request.all();
+    const user = (await User.findBy('email', email)).toJSON();
 
-  /**
-   * Create/save a new attribute.
-   * POST attributes
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async store({ request, response }) {}
+    response.status(201).send(`User ${user.name} and ${user.email} loged`);
+  }
 
-  /**
-   * Display a single attribute.
-   * GET attributes/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async show({ params, request, response, view }) {}
+  async registration({ request, response }) {
+    const { name, password, email } = request.all();
 
-  /**
-   * Update attribute details.
-   * PUT or PATCH attributes/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async update({ params, request, response }) {}
+    const user = new User();
+    user.name = name;
+    user.password = password;
+    user.email = email;
 
-  /**
-   * Delete a attribute with id.
-   * DELETE attributes/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async destroy({ params, request, response }) {}
+    try {
+      await user.save();
+    } catch (e) {
+      throw new Error(`User ${name} - ${email} already created`);
+    }
+
+    response.status('201').send(`User ${name} and ${email} created`);
+  }
 }
 
 module.exports = LoginController;

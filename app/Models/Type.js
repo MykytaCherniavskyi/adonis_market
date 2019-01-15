@@ -2,6 +2,14 @@
 const Model = use('Model');
 
 class Type extends Model {
+  static get createdAtColumn() {
+    return null;
+  }
+
+  static get updatedAtColumn() {
+    return null;
+  }
+
   attributes() {
     return this.hasMany('App/Models/Attribute');
   }

@@ -17,8 +17,9 @@ const Route = use('Route');
 Route.get('/', () => ({ status: 'OK', version: '1.0.0' }));
 
 Route.group(() => {
-  Route.resource('/login', 'LoginController').apiOnly();
+  Route.post('/login', 'LoginController.index');
+  Route.post('/registration', 'LoginController.registration');
   Route.resource('/products', 'ProductsController').apiOnly();
   Route.resource('/products/types', 'ProductsTypesController').apiOnly();
-  Route.resource('/types', 'TypesController').apiOnly();
+  Route.resource('/types', 'TypesController');
 }).prefix('api');

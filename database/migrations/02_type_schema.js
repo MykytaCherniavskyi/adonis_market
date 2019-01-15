@@ -5,8 +5,10 @@ class TypeSchema extends Schema {
   up() {
     this.create('types', table => {
       table.increments();
-      table.string('name').notNullable();
-      table.timestamps();
+      table
+        .string('name')
+        .notNullable()
+        .unique();
     });
   }
 

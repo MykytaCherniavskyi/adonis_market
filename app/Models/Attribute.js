@@ -3,7 +3,7 @@ const Model = use('Model');
 
 class Attribute extends Model {
   productAttribute() {
-    return this.hasMany('App/Models/ProductAttribute');
+    return this.belongsToMany('App/Models/Product');
   }
 
   types() {
