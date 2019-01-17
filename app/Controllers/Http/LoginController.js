@@ -2,6 +2,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const User = use('App/Models/User');
+
 /**
  * Resourceful controller for interacting with attributes
  */
@@ -15,48 +17,13 @@ class LoginController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ request, response, view }) {}
+  async index({ request, response }) {
+    response.status(201).send(await User.login(request));
+  }
 
-  /**
-   * Create/save a new attribute.
-   * POST attributes
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async store({ request, response }) {}
-
-  /**
-   * Display a single attribute.
-   * GET attributes/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async show({ params, request, response, view }) {}
-
-  /**
-   * Update attribute details.
-   * PUT or PATCH attributes/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async update({ params, request, response }) {}
-
-  /**
-   * Delete a attribute with id.
-   * DELETE attributes/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async destroy({ params, request, response }) {}
+  async registration({ request, response }) {
+    response.status(201).send(await User.registration(request));
+  }
 }
 
 module.exports = LoginController;

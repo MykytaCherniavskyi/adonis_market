@@ -1,12 +1,11 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model');
-
-/** @type {import('@adonisjs/framework/src/Hash')} */
 const Hash = use('Hash');
 
 class User extends Model {
   static boot() {
     super.boot();
+    this.addTrait('App/Models/Traits/Repository');
 
     /**
      * A hook to hash the user password before saving
@@ -31,6 +30,10 @@ class User extends Model {
    */
   tokens() {
     return this.hasMany('App/Models/Token');
+  }
+
+  products() {
+    return this.hasMany('App/Models/Product');
   }
 }
 
