@@ -2,6 +2,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Type = use('App/Models/Type');
+
 /**
  * Resourceful controller for interacting with types
  */
@@ -15,7 +17,9 @@ class TypesController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ request, response, view }) {}
+  async index({ response }) {
+    response.json(await Type.showTypes());
+  }
 
   /**
    * Create/save a new type.
@@ -25,7 +29,9 @@ class TypesController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request, response }) {}
+  async store({ request, response }) {
+    response.send(await Type.storeType(request));
+  }
 
   /**
    * Display a single type.
@@ -36,7 +42,9 @@ class TypesController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({ params, request, response, view }) {}
+  async show({ params, response }) {
+    response.json(await Type.singleType(params));
+  }
 
   /**
    * Update type details.
@@ -46,7 +54,9 @@ class TypesController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({ params, request, response }) {}
+  async update({ params, request, response }) {
+    response.json(await Type.updateType(params, request));
+  }
 
   /**
    * Delete a type with id.
@@ -56,7 +66,9 @@ class TypesController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params, request, response }) {}
+  async destroy({ params, response }) {
+    response.send(await Type.destroyType(params));
+  }
 }
 
 module.exports = TypesController;
