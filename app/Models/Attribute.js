@@ -2,8 +2,13 @@
 const Model = use('Model');
 
 class Attribute extends Model {
+  static boot() {
+    super.boot();
+    this.addTrait('App/Models/Traits/Repository');
+  }
+
   productAttribute() {
-    return this.belongsToMany('App/Models/Product');
+    return this.belongsToMany('App/Models/Product').pivotModel('App/Models/ProductAttribute');
   }
 
   types() {

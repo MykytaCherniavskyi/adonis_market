@@ -1,6 +1,7 @@
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
+const Product = use('App/Models/Product');
 
 /**
  * Resourceful controller for interacting with products
@@ -15,7 +16,9 @@ class ProductsController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ request, response, view }) {}
+  async index({ request, response }) {
+    response.json(await Product.showProducts(request));
+  }
 
   /**
    * Create/save a new product.
@@ -25,7 +28,10 @@ class ProductsController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request, response }) {}
+  async store({ request, response, params }) {
+    console.log(params);
+    response.json(await Product.storeProduct(request));
+  }
 
   /**
    * Display a single product.
@@ -36,7 +42,9 @@ class ProductsController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({ params, request, response, view }) {}
+  async show({ params, response }) {
+    response.json(await Product.singleProduct(params));
+  }
 
   /**
    * Update product details.
@@ -46,7 +54,9 @@ class ProductsController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({ params, request, response }) {}
+  async update({ params, request, response }) {
+    response.json(await Product.updatedProduct(params, request));
+  }
 
   /**
    * Delete a product with id.
@@ -56,7 +66,9 @@ class ProductsController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params, request, response }) {}
+  async destroy({ params, response }) {
+    response.json(await Product.deleteProduct(params));
+  }
 }
 
 module.exports = ProductsController;

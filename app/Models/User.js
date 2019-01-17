@@ -5,6 +5,7 @@ const Hash = use('Hash');
 class User extends Model {
   static boot() {
     super.boot();
+    this.addTrait('App/Models/Traits/Repository');
 
     /**
      * A hook to hash the user password before saving

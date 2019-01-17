@@ -19,7 +19,7 @@ Route.get('/', () => ({ status: 'OK', version: '1.0.0' }));
 Route.group(() => {
   Route.post('/login', 'LoginController.index');
   Route.post('/registration', 'LoginController.registration');
-  Route.resource('/products', 'ProductsController').apiOnly();
-  Route.resource('/products/types', 'ProductsTypesController').apiOnly();
+  Route.resource('/products', 'ProductsController');
+  Route.resource('/products/:attr/attributes', 'ProductAttributeController');
   Route.resource('/types', 'TypesController');
 }).prefix('api');

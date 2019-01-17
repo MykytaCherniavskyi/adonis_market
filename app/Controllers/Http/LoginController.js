@@ -18,27 +18,11 @@ class LoginController {
    * @param {View} ctx.view
    */
   async index({ request, response }) {
-    const { email } = request.all();
-    const user = (await User.findBy('email', email)).toJSON();
-
-    response.status(201).send(`User ${user.name} and ${user.email} loged`);
+    response.status(201).send(await User.login(request));
   }
 
   async registration({ request, response }) {
-    const { name, password, email } = request.all();
-
-    const user = new User();
-    user.name = name;
-    user.password = password;
-    user.email = email;
-
-    try {
-      await user.save();
-    } catch (e) {
-      throw new Error(`User ${name} - ${email} already created`);
-    }
-
-    response.status('201').send(`User ${name} and ${email} created`);
+    response.status(201).send(await User.registration(request));
   }
 }
 
